@@ -17,7 +17,7 @@ namespace FluentRoslyn
         public static bool IsDefined<T>(this IMethodSymbol method)
             where T : Attribute
         {
-            var fullName = typeof(T).FullName!;
+            var fullName = typeof(T).FullName!.Replace('+', '.');
             return method.GetAttributes()
                 .Any(a => a.AttributeClass?.ToDisplayString() == fullName);
         }
@@ -30,7 +30,7 @@ namespace FluentRoslyn
         public static AttributeData? GetAttribute<T>(this IMethodSymbol method)
             where T : Attribute
         {
-            var fullName = typeof(T).FullName!;
+            var fullName = typeof(T).FullName!.Replace('+', '.');
             return method.GetAttributes()
                 .FirstOrDefault(a => a.AttributeClass?.ToDisplayString() == fullName);
         }

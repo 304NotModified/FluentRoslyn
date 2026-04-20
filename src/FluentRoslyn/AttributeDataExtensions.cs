@@ -40,7 +40,7 @@ namespace FluentRoslyn
         public static bool IsOfType<T>(this AttributeData attribute)
             where T : Attribute
         {
-            return attribute.IsOfType(typeof(T).FullName!);
+            return attribute.IsOfType(typeof(T).FullName!.Replace('+', '.'));
         }
 
         /// <summary>

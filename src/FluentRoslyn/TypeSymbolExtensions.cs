@@ -80,7 +80,7 @@ namespace FluentRoslyn
         public static bool IsDefined<T>(this INamedTypeSymbol type)
             where T : Attribute
         {
-            return type.IsDefined(typeof(T).FullName!);
+            return type.IsDefined(typeof(T).FullName!.Replace('+', '.'));
         }
 
         /// <summary>
@@ -100,7 +100,7 @@ namespace FluentRoslyn
         public static AttributeData? GetAttribute<T>(this INamedTypeSymbol type)
             where T : Attribute
         {
-            var fullName = typeof(T).FullName!;
+            var fullName = typeof(T).FullName!.Replace('+', '.');
             return type.GetAttributes()
                 .FirstOrDefault(a => a.AttributeClass?.ToDisplayString() == fullName);
         }
@@ -112,7 +112,7 @@ namespace FluentRoslyn
         public static IEnumerable<AttributeData> GetAttributes<T>(this INamedTypeSymbol type)
             where T : Attribute
         {
-            var fullName = typeof(T).FullName!;
+            var fullName = typeof(T).FullName!.Replace('+', '.');
             return type.GetAttributes()
                 .Where(a => a.AttributeClass?.ToDisplayString() == fullName);
         }
